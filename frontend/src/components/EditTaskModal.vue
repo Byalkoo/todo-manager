@@ -9,23 +9,20 @@ const props = defineProps({
 const emit = defineEmits(["close", "save"]);
 
 const localTitle = ref("");
-const localDescription = ref("");
 
 watch(
   () => props.task,
   (newTask) => {
     if (newTask) {
       localTitle.value = newTask.title;
-      localDescription.value = newTask.description;
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 const handleSave = () => {
   emit("save", {
     title: localTitle.value,
-    description: localDescription.value,
   });
 };
 
@@ -69,20 +66,9 @@ const handleClose = () => {
             v-model="localTitle"
             type="text"
             placeholder="Co należy zrobić?"
+            required
             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
           />
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">
-            Opis
-          </label>
-          <textarea
-            v-model="localDescription"
-            placeholder="Dodatkowe szczegóły..."
-            rows="4"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
-          ></textarea>
         </div>
 
         <div class="flex gap-3">

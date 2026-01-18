@@ -4,16 +4,15 @@ import { ref } from "vue";
 const emit = defineEmits(["add-task"]);
 
 const title = ref("");
-const description = ref("");
 
 const handleSubmit = () => {
+  if (!title.value.trim()) return;
+
   emit("add-task", {
     title: title.value,
-    description: description.value,
   });
 
   title.value = "";
-  description.value = "";
 };
 </script>
 
@@ -49,20 +48,9 @@ const handleSubmit = () => {
           v-model="title"
           type="text"
           placeholder="Co należy zrobić?"
+          required
           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
         />
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">
-          Opis
-        </label>
-        <textarea
-          v-model="description"
-          placeholder="Dodatkowe szczegóły..."
-          rows="3"
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
-        ></textarea>
       </div>
 
       <button
